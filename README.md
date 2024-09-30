@@ -1,4 +1,9 @@
-# 2c.SIMULATING ARP /RARP PROTOCOLS
+## 2c.SIMULATING ARP /RARP PROTOCOLS
+
+## NAME: K KESAVA SAI
+
+## REGISTER NUMBER: 212223230105
+
 ## AIM
 To write a python program for simulating ARP protocols using TCP.
 ## ALGORITHM:
@@ -16,10 +21,40 @@ stored.
 4. Read the IP address which is send by the client.
 5. Map the IP address with its MAC address and return the MAC address to client.
 P
-## PROGRAM - ARP
-## OUPUT - ARP
-## PROGRAM - RARP
-## OUPUT -RARP
+## PROGRAM
+## Client:
+```py
+import socket
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"};
+while True:
+    ip=c.recv(1024).decode()
+    try:
+        c.send(address[ip].encode())
+    except KeyError:
+        c.send("Not Found".encode()) 
+```
+## Server:
+```py
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+    ip=input("Enter logical Address : ")
+    s.send(ip.encode())
+    print("MAC Address",s.recv(1024).decode())
+```
+
+## OUPUT:
+## Client:
+![image](https://github.com/user-attachments/assets/cc372e1f-a22a-452a-9d5f-3a893f6a672f)
+
+## Server:
+![image](https://github.com/user-attachments/assets/c181aea4-1fcd-4227-bdf1-db9abd252c9a)
+
 ## RESULT
 Thus, the python program for simulating ARP protocols using TCP was successfully 
 executed.
